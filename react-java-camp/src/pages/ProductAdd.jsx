@@ -8,19 +8,24 @@ import { toast } from 'react-toastify';
 
 
 export default function ProductAdd() {
-  const initialValues = {
+  const initialValues = { // Başlangıç değerleri bu şekilde gönderilebilir. Formik default olarak istiyor.
     productName: "",
-    unitPrice: 10,
+    unitPrice: "",
     unitsInStock:""
   };
 
-  const schema = Yup.object({
+  const schema = Yup.object({ // Formik default olarak bir şema da istiyor. Validasyonumuzu bu şekilde yapıyoruz.
     productName: Yup.string().required("Ürün adı alanı boş bırakılamaz"),
     unitPrice: Yup.number().required("Ürün fiyatı alanı boş bırakılamaz"),
     unitsInStock:Yup.number().required("Stok adedi alanı boş bırakılamaz")
   });
 
 
+const productService=new ProductService();
+  const addProductHandler=async (product)=>{
+   await productService.addProduct(product);
+    toast.info(`${product.productName} veri tabanına eklendi`)
+  }
 
 
   return (
@@ -28,7 +33,7 @@ export default function ProductAdd() {
       {/* Formik kullanarak bir form yazacaksak bir Formik tagi içerisine alıyoruz. Bunun sebebi formik
          form'u ile diğer formların karışmaması için, ek olarak Formik elementinin prop'larına validasyon gibi
           ilgili başlangıç şemalarını gönderiyoruz. */}
-      <Formik initialValues={initialValues} validationSchema={schema} onSubmit={{}}>
+      <Formik initialValues={initialValues} validationSchema={schema} onSubmit={addProductHandler}>
         <Form className="ui form">
         {/* <FormField>
       <Field name="productName" placeholder="Ürün Adı"></Field>
@@ -39,6 +44,7 @@ export default function ProductAdd() {
     <YcTextInput name="productName" placeholder="Ürün Adı"/>
     <YcTextInput name="unitPrice" placeholder="Ürün Fiyatı"/>
     <YcTextInput name="unitsInStock" placeholder="Stok Adedi"/>
+    {/* Custom form'un ekmeğini yiyoruz. */}
 
 
 
