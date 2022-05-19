@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import * as actionTypes from './store/actionTypes'
 
 const UserContext=React.createContext(); // Context oluşturulur.
 
 const reducer=(state,action)=>{
     switch (action.type) {
-        case "DELETE_USER":
+        case actionTypes.DELETE_USER:
             return{
                 ...state, // spread operator
                 users:state.users.filter(user=>action.payload!==user.id)

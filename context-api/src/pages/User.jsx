@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import UserConsumer from "../context";
 import PropTypes from "prop-types";
+import * as actionTypes from '../store/actionTypes'
+
 
 class User extends Component {
   state = {
@@ -13,10 +15,10 @@ class User extends Component {
     });
   };
 
-  onDeleteUser = (dispatch, e) => {
+  onDeleteUser = (dispatch, e) => { // bind ederken dispatch sonda, fonksiyonda başta kullanılır.
     const { id } = this.props;
     // Consumer dispatch
-    dispatch({ type: "DELETE_USER", payload: id });
+    dispatch({ type: actionTypes.DELETE_USER, payload: id });
   };
   render() {
     const { firstName, lastName, age } = this.props;
