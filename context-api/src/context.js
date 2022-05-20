@@ -10,7 +10,11 @@ const reducer=(state,action)=>{
                 ...state, // spread operator
                 users:state.users.filter(user=>action.payload!==user.id)
             }
-    
+            case actionTypes.ADD_USER:
+                return{
+                    ...state,
+                    users:[...state.users,action.payload]
+                }
         default:
             return state;
     }
@@ -20,22 +24,22 @@ const reducer=(state,action)=>{
     state = {
         users:[
             {
-                id:1,
+                id:"1",
                 firstName:"Yusuf",
                 lastName:"Çırak",
-                age:21
+                age:"21"
             },
             {
-                id:2,
+                id:"2",
                 firstName:"Yusuf",
                 lastName:"Çırak",
-                age:21
+                age:"21"
             },
             {
-                id:3,
+                id:"3",
                 firstName:"Yusuf",
                 lastName:"Çırak",
-                age:21
+                age:"21"
             }
         ],
         dispatch:action=>{

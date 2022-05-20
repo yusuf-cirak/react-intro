@@ -7,6 +7,7 @@ import * as actionTypes from '../store/actionTypes'
 class User extends Component {
   state = {
     isVisible: true,
+    hover:false
   };
 
   onClickEvent = (e) => {
@@ -15,6 +16,12 @@ class User extends Component {
     });
   };
 
+  onHoverEvent=(e)=>{
+    this.setState({
+      hover:!this.state.hover
+    })
+  }
+
   onDeleteUser = (dispatch, e) => { // bind ederken dispatch sonda, fonksiyonda başta kullanılır.
     const { id } = this.props;
     // Consumer dispatch
@@ -22,7 +29,7 @@ class User extends Component {
   };
   render() {
     const { firstName, lastName, age } = this.props;
-    const { isVisible } = this.state;
+    const { isVisible,hover } = this.state;
 
     return (
       <UserConsumer>
@@ -31,9 +38,9 @@ class User extends Component {
           return (
             <div className="userComponent">
               <div className="col-md-8 mb-4">
-                <div className="card">
+                <div className="card" style={hover?{backgroundColor:"#6b885e"}:null}>
                   <div className="card-header d-flex justify-content-between">
-                    <h4 className="d-inline" onClick={this.onClickEvent}>
+                    <h4 className="d-inline" onMouseEnter={this.onHoverEvent} onMouseLeave={this.onHoverEvent} onClick={this.onClickEvent}>
                       {firstName} {lastName}
                     </h4>
                     <i
@@ -60,6 +67,7 @@ class User extends Component {
 }
 
 User.propTypes={
+  id:PropTypes.string.isRequired,
     firstName:PropTypes.string.isRequired,
     lastName:PropTypes.string.isRequired,
     age:PropTypes.number.isRequired
