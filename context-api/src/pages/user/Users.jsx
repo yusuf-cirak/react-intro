@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import UserConsumer from "../context";
+import UserConsumer from "../../context";
 import User from './User'
 
 export default class Users extends Component {

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react'
 // import uniqid from 'uniqid';
-import UserConsumer from '../context'
-import * as actionTypes from '../store/actionTypes'
+import UserConsumer from '../../context'
+import * as actionTypes from '../../store/actionTypes'
 
  class UserAddForm extends Component {
 

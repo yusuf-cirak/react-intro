@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import UserConsumer from "../context";
+import UserConsumer from "../../context";
 import PropTypes from "prop-types";
-import * as actionTypes from '../store/actionTypes'
+import * as actionTypes from '../../store/actionTypes'
 import axios from 'axios'
 
 class User extends Component {
