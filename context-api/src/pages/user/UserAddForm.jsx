@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 // import uniqid from 'uniqid';
 import UserConsumer from '../../context'
 import * as actionTypes from '../../store/actionTypes'
-
+import { useNavigate } from 'react-router-dom';
  class UserAddForm extends Component {
 
 
@@ -11,13 +11,22 @@ import * as actionTypes from '../../store/actionTypes'
         firstName:"",
         lastName:"",
         salary:"",
-        department:""
+        department:"",
+        error:false
     }
 
     changeInput=(e)=>{
         this.setState({
             [e.target.name]:e.target.value
         })
+    }
+
+    validateForm=(e)=>{
+        const {firstName,lastName,salary,department}=this.state
+        if (firstName==='' || lastName==='' || salary===''|| department==='') {
+            return false
+        }
+        return true
     }
 
     addUser= async(dispatch,e)=>{
@@ -35,13 +44,24 @@ import * as actionTypes from '../../store/actionTypes'
             department
         }
 
+        if (!this.validateForm()) {
+            this.setState({
+                error:true
+            })
+            return; // Bu işlem yapılırsa return ile fonksiyonun sonlanması gerekir, yani aşağısı çalışmamalı.
+        }
+
         const response=await axios.post("http://localhost:3001/users",newUser)
 
         dispatch({type:actionTypes.ADD_USER,payload:response.data})
+
+
+        // Redirect
+        this.props.navigate('/')
     }
 
   render() {
-      const {firstName,lastName,salary,department}=this.state
+      const {firstName,lastName,salary,department,error}=this.state
 
 
       return(
@@ -55,6 +75,13 @@ import * as actionTypes from '../../store/actionTypes'
               <div className="card">
                   <div className="card-header">
                       <h4>Kullanıcı ekleme formu</h4>
+                      <div className="card-body">
+                          {
+                              error?<div className="alert alert-danger">
+                                  Lütfen bilgilerinizi kontrol edin
+                              </div>:null
+                          }
+                      </div>
                       <div className="card-body">
                           <form onSubmit={this.addUser.bind(this,dispatch)}>
                               <div className="form-group">
@@ -115,4 +142,10 @@ import * as actionTypes from '../../store/actionTypes'
   }
 }
 
-export default UserAddForm;
+// eslint-disable-next-line import/no-anonymous-default-export
+export default (props) => ( // React hooks'ları class component'lerde kullanma yöntemi
+    <UserAddForm
+        {...props}
+        navigate={useNavigate()}
+    />
+);

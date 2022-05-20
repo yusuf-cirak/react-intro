@@ -3,6 +3,7 @@ import UserConsumer from "../../context";
 import PropTypes from "prop-types";
 import * as actionTypes from '../../store/actionTypes'
 import axios from 'axios'
+import { Link } from "react-router-dom";
 
 class User extends Component {
   state = {
@@ -29,7 +30,7 @@ class User extends Component {
     dispatch({ type: actionTypes.DELETE_USER, payload: id });
   };
   render() {
-    const { firstName, lastName, salary,department } = this.props;
+    const { id,firstName, lastName, salary,department } = this.props;
     const { isVisible,hover } = this.state;
 
     return (
@@ -54,6 +55,7 @@ class User extends Component {
                         <div className="card-body">
                           <p className="card-text">Maaş : {salary}</p>
                           <p className="card-text">Departman : {department}</p>
+                          <Link to={`/user/update/${id}`} className="btn btn-dark btn-block">Kullanıcı bilgilerini güncelle</Link>
 
                         </div>
                       ) : null}

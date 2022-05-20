@@ -8,18 +8,32 @@
       "department": "IT"
     },
     {
-      "id": "2",
       "firstName": "Mehmet",
       "lastName": "Çınar",
       "salary": "6000",
-      "department": "IT"
+      "department": "IT1",
+      "id": "2"
     },
     {
       "firstName": "Aydın",
       "lastName": "Bayar",
       "salary": "10000",
-      "department": "Makina",
+      "department": "Makina1",
       "id": "io7qP0C"
+    },
+    {
+      "firstName": "haşmettin",
+      "lastName": "Bayar",
+      "salary": "10000",
+      "department": "Makina3",
+      "id": "MYWOnGI"
+    },
+    {
+      "firstName": "Aydın",
+      "lastName": "çakır",
+      "salary": "10000",
+      "department": "Makina3",
+      "id": "i0LiVcr"
     }
   ]
 }
