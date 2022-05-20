@@ -1,5 +1,6 @@
+import axios from 'axios';
 import React, { Component } from 'react'
-import uniqid from 'uniqid';
+// import uniqid from 'uniqid';
 import UserConsumer from '../context'
 import * as actionTypes from '../store/actionTypes'
 
@@ -9,7 +10,8 @@ import * as actionTypes from '../store/actionTypes'
     state={ // state
         firstName:"",
         lastName:"",
-        age:"",
+        salary:"",
+        department:""
     }
 
     changeInput=(e)=>{
@@ -18,23 +20,28 @@ import * as actionTypes from '../store/actionTypes'
         })
     }
 
-    addUser=(dispatch,e)=>{
+    addUser= async(dispatch,e)=>{
+        e.preventDefault(); // Sayfa yenilenmesini engelliyoruz.
+        // Eğer ki bir form gönderildikten sonra sayfa yenilenmemeliyse preventDefault en başta kullanılmalı,
+        // burada en sonda kullanılırsa sayfa yenilenir ve datalar query'ye gönderilir.
 
-        const {firstName,lastName,age}=this.state // state'den alanların en güncel halini alıyoruz
+        const {firstName,lastName,salary,department}=this.state // state'den alanların en güncel halini alıyoruz
 
         const newUser={
-            id:uniqid(),
+            // id:uniqid(), // axios id ekliyor
             firstName, // state'ler ile User objesinin alanları aynı olduğu için böyle tanımlayabiliriz.
             lastName,
-            age
+            salary,
+            department
         }
 
-        dispatch({type:actionTypes.ADD_USER,payload:newUser})
-        e.preventDefault(); // Sayfa yenilenmesini engelliyoruz.
+        const response=await axios.post("http://localhost:3001/users",newUser)
+
+        dispatch({type:actionTypes.ADD_USER,payload:response.data})
     }
 
   render() {
-      const {firstName,lastName,age}=this.state
+      const {firstName,lastName,salary,department}=this.state
 
 
       return(
@@ -71,13 +78,23 @@ import * as actionTypes from '../store/actionTypes'
                                   onChange={this.changeInput}/>
                               </div>
                               <div className="form-group">
-                                  <label htmlFor="age">Yaşınız</label>
+                                  <label htmlFor="salary">Maaşınız</label>
                                   <input type="text"
-                                  name='age'
-                                  id='age'
-                                  placeholder='Yaşınız'
+                                  name='salary'
+                                  id='salary'
+                                  placeholder='Maaşınız'
                                   className='form-control'
-                                  value={age}
+                                  value={salary}
+                                  onChange={this.changeInput}/>
+                              </div>
+                              <div className="form-group">
+                                  <label htmlFor="department">Departmanınız</label>
+                                  <input type="text"
+                                  name='department'
+                                  id='department'
+                                  placeholder='Departmanınız'
+                                  className='form-control'
+                                  value={department}
                                   onChange={this.changeInput}/>
                               </div>
 

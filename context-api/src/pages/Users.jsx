@@ -16,7 +16,8 @@ export default class Users extends Component {
                    id={user.id}
                    firstName={user.firstName}
                    lastName={user.lastName}
-                   age={user.age}
+                   salary={user.salary}
+                   department={user.department}
 
                    />
               )
