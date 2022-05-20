@@ -13,7 +13,7 @@ function App() {
       <Routes>
             <Route exact path="/" element={<Users/>} />
             <Route exact path="/user/add" element={<UserAddForm />} />
-            <Route component={<NotFound/>}/>
+            <Route element={<NotFound/>}/>
       </Routes>
       </div>
   );
